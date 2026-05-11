@@ -32,9 +32,15 @@ def analyser_url(url):
     return score, alertes
 
 
-url = input("Colle une URL à analyser: ")
-score, alertes = analyser_url(url)
+with open("test_urls.txt", "r") as fichier:
+    urls = fichier.readlines()
 
-print(f"Score de risque: {score}")
-for alerte in alertes:
-    print(alerte)
+for url in urls:
+    url = url.strip()
+    if url:
+        score, alertes = analyser_url(url)
+
+        print(f"Score de risque : {score}")
+        for alerte in alertes:
+            print(alerte)
+        print("-" * 40)

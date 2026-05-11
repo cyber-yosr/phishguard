@@ -1,0 +1,5 @@
+https://google.com
+http://192.168.1.1/login
+http://secure-verify-account.com/update
+https://amazon.com
+http://paypal-confirm-password.com
