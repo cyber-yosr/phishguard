@@ -12,15 +12,19 @@ Ceci est un projet realisé dans le cadre d'apprentissage autonome de la cyberse
 - Détection d'adresses IP dans l'URL
 - Analyse d'URLs trop longues
 - Scoring de risque avec verdict
+- **Interface web** via Flask
 
 ## Utilisation
 ```bash
 python phishguard.py
 ```
+Puis ouvre ton navigateur sur **http://127.0.0.1:5000**
 
 ## Technologies
 - Python 3
+- Flask
 - Bibliothèque  're'
+- HTML / CSS
 
 ## Auteure
 Yosr - Etudiante en Prépa, passionnée de cybersecurité.
