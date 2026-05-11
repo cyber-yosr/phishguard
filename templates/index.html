@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title> PhishGuard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 700px;
+            margin: 50px auto;
+            background-color: #0d1117;
+            color: #c9d1d9;
+        }
+        h1 { color: #58a6ff; }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            background: #161b22;
+            border: 1px solid #30363d;
+            color: white;
+            border-radius: 6px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #238636;
+            color: white ;
+            border: none;
+            border-radius: 1px solid #30363d;
+        }
+        .safe { color: #3fb950; }
+        .warning { color: #d29922; }
+        .danger { color: #f85149; }
+    </style>
+</head>
+<body>
+    <h1> PhishGuard</h1>
+    <p> Analyse une URL et détecte les indicateurs de phishing.</p>
+    <form method="POST">
+        <input type="text" name="url" placeholder="Colle une URL ici..." required>
+        <button type="submit"> Analyser </button>
+    </form>
+    {% if resultat %}
+    <div class="resultat">
+        <h2> Résultat pour : {{ resultat.url }}</h2>
+
+        {% if resultat.score == 0 %}
+            <p class="safe">✅ URL propre — aucun indicateur suspect</p>
+        {% elif resultat.score <= 3 %}
+            <p class="warning">🟡 Risque modéré — à vérifier</p>
+        {% elif resultat.score <= 6 %}
+            <p class="warning">🟠 Risque élevé — méfiance !</p>
+        {% else %}
+            <p class="danger">🔴 DANGER — URL très probablement malveillante !</p>
+        {% endif %}
+
+        <p> Score de risque: <strong>{{ resultat.score}}/10</strong></p>
+
+        {% if resultat.alertes %}
+        <ul>
+            {% for alerte in resultat.alertes %}
+            <li> {{ alerte }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
+    {% endif %}
+
+</body>
+</html>
