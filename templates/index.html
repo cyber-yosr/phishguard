@@ -45,16 +45,26 @@
         <h2> Résultat pour : {{ resultat.url }}</h2>
 
         {% if resultat.score == 0 %}
-            <p class="safe">✅ URL propre — aucun indicateur suspect</p>
+            <p class="safe"> URL propre — aucun indicateur suspect</p>
         {% elif resultat.score <= 3 %}
-            <p class="warning">🟡 Risque modéré — à vérifier</p>
+            <p class="warning"> Risque modéré — à vérifier</p>
         {% elif resultat.score <= 6 %}
-            <p class="warning">🟠 Risque élevé — méfiance !</p>
+            <p class="warning"> Risque élevé — méfiance !</p>
         {% else %}
-            <p class="danger">🔴 DANGER — URL très probablement malveillante !</p>
+            <p class="danger"> DANGER — URL très probablement malveillante !</p>
         {% endif %}
 
-        <p> Score de risque: <strong>{{ resultat.score}}/10</strong></p>
+        <p>Niveau de risque : <strong>{{ resultat.pourcentage }}%</strong></p>
+        <div style="background:#0d1117; border-radius:6px; height:12px; margin:8px 0;">
+            <div style="background:
+                {% if resultat.pourcentage < 30 %}#3fb950
+                {% elif resultat.pourcentage < 60 %}#d29922
+                {% else %}#f85149{% endif %};
+                width:{{ resultat.pourcentage }}%;
+                height:12px;
+                border-radius:6px;">
+            </div>
+        </div>
 
         {% if resultat.alertes %}
         <ul>
@@ -62,6 +72,13 @@
             <li> {{ alerte }}</li>
             {% endfor %}
         </ul>
+        {% endif %}
+        {% if resultat.vt_malveillants is not none %}
+        <div style="margin-top: 15px; padding: 10px; background: #0d1117; border-radius: 6px;">
+            <p><strong>Analyse VirusTotal :</strong></p>
+            <p>Malveillants : <strong>{{ resultat.vt_malveillants }}</strong>/70+ antivirus</p>
+            <p> Suspects : <strong>{{ resultat.vt_suspects }}</strong>/70+ antivirus</p>
+        </div>
         {% endif %}
     </div>
     {% endif %}
